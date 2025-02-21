@@ -3,19 +3,19 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
+const port = 3000;
 
 app.use(cors());
 app.use(express.json());
 
 // Connexion à MongoDB
-const mongoURI = process.env.MONGO_URI;
-const mongoPort = process.env.MONGO_PORT || 3000;
+const mongoURI = "mongodb://localhost:27018/pokemon"; // Change en 27017 si nécessaire
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("🟢 Connecté à MongoDB"))
   .catch((err) => console.error("🔴 Erreur de connexion à MongoDB", err));
 
-// Modèle Pokémon
+// Modèle Pokémon (Optionnel)
 const pokemonSchema = new mongoose.Schema({
   name: String,
   type: [String],
@@ -31,6 +31,6 @@ app.get("/pokedex", async (req, res) => {
   }
 });
 
-app.listen(mongoPort, () => {
+app.listen(port, () => {
   console.log(`🚀 Serveur API lancé sur http://localhost:${port}`);
 });
