@@ -6,7 +6,6 @@ services:
   db:
     image: mongo:latest
     container_name: mongodb
-    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
@@ -25,7 +24,6 @@ services:
   mongo-express:
     image: mongo-express
     container_name: mongo-express
-    restart: always
     depends_on:
       db:
         condition: service_healthy
@@ -41,7 +39,6 @@ services:
   app:
     build: ./app
     container_name: pokemon-container
-    restart: always
     depends_on:
       db:
         condition: service_healthy
